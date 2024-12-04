@@ -10,3 +10,18 @@ insert into authorities values('user', 'read');
 insert into users values('admin', '{bcrypt}$2a$12$RPQZsLtvJ1ihS3cGvm70AOP84XRvzcQEParA8iW/UwZ8dkB/.VJcC', '1');
 insert into authorities values('admin', 'admin');
 
+
+create table customer
+( id int not null auto_increment,
+  email varchar(45) not null,
+  pwd varchar(200) not null,
+  user_role varchar(45) not null,
+  primary key(id)
+ );
+
+
+ insert into customer(email,pwd,user_role) values('jhon@example.com', '{noop}EazyBytes@12345', 'read');
+
+ // pwd- admin@12345
+ insert into customer(email,pwd,user_role) values('admin@example.com', '{bcrypt}$2a$12$.ArjkUzFqr0XtVfV0AlQKeUUKk0ClMmOeiFCOA9TUA4NV6xZ9wymO', 'admin');
+ insert into customer(email,pwd,user_role) values('jhon@example.com', '{noop}EazyBytes@12345', 'read');
