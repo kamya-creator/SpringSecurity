@@ -1,16 +1,33 @@
 package com.easybytes.controller;
 
 
+import com.easybytes.model.Contact;
+import com.easybytes.repository.ContactRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.sql.Date;
+import java.util.Random;
+
 @RestController
+@RequiredArgsConstructor
 public class ContactController {
 
+    private final ContactRepository contactRepository;
 
     @GetMapping("/contact")
-    public  String saveContactInquiryDetails()
+    public Contact saveContactInquiryDetails(@RequestBody Contact contact)
     {
-        return "Contact us saved to to DB";
+        contact.setContactId(getServiceReqNumber());
+        contact.setCreateDt(new Date(System.currentTimeMillis()));
+        return  contactRepository.save(contact);
+    }
+
+    public String getServiceReqNumber() {
+        Random random = new Random();
+        int randNum = random.nextInt(9999999-9999) +99999;
+        return "SR" + randNum;
     }
 }

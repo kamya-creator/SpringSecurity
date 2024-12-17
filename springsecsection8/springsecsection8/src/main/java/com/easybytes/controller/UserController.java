@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.sql.Date;
+
 @RestController
 @RequiredArgsConstructor
 public class UserController {
@@ -23,11 +25,12 @@ public class UserController {
     {
         try {
 
-            String hashpwd = passwordEncoder.encode(customer.getPwd());
-            customer.setPwd(hashpwd);
-            customerRepository.save(customer);
+            String hashPwd = passwordEncoder.encode(customer.getPwd());
+            customer.setPwd(hashPwd);
+            customer.setCreateDt(new Date(System.currentTimeMillis()));
+            Customer savedCustomer = customerRepository.save(customer);
 
-            if(customer.getId() > 0)
+            if(savedCustomer.getId() > 0)
                 return ResponseEntity.status(HttpStatus.CREATED)
                     .body("User is registered Successfully");
             else
