@@ -2,6 +2,7 @@ package com.easybytes.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,7 +14,7 @@ import java.sql.Date;
 @Setter
 @Table(name = "cards")
 public class Cards {
-
+    @Id
     @Column(name = "card_id")
     private long cardId;
 

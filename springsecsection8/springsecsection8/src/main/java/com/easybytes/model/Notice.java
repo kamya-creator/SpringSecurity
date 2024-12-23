@@ -25,11 +25,17 @@ public class Notice {
     @Column(name = "notice_details")
     private String noticeDetails;
 
-    @Column(name = "notice_bg_dt")
-    private Date noticeBgDt;
+    @Column(name = "notic_beg_dt")
+    private Date noticeBegDt;
 
-    @Column(name = "notice_end_dt")
+    @Column(name = "notic_end_dt")
     private Date noticeEndDt;
+
+
+    @JsonIgnore
+    @Column(name = "create_dt")
+    private Date createDt;
+
 
     @JsonIgnore
     @Column(name = "update_dt")
