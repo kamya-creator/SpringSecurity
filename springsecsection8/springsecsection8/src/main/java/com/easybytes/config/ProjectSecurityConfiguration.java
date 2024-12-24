@@ -49,15 +49,16 @@ public class ProjectSecurityConfiguration {
             }
         }))
                 .csrf(csrfConfig -> csrfConfig.csrfTokenRequestHandler(csrfTokenRequestAttributeHandler)
+                        .ignoringRequestMatchers("/contact","/register")
                         .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
                 .addFilterAfter(new CsrfCookieFilter(), BasicAuthenticationFilter.class)
 
 
-                .requiresChannel(rcc -> rcc.anyRequest().requiresInsecure())  //Accept only HTTPS request
+                .requiresChannel(rcc -> rcc.anyRequest().requiresInsecure())  //Accept only HTTP request
                 .authorizeHttpRequests((requests) ->
-                requests.requestMatchers("myAccount","myBalance","myCards","myLoans","user").authenticated());
+                requests.requestMatchers("/myAccount","/myBalance","/myCards","/myLoans","/user").authenticated());
         http.authorizeHttpRequests((requests) ->
-                requests.requestMatchers("contact","notices","error","register","/invalidSession","/csrf").permitAll());
+                requests.requestMatchers("/contact","/notices","/error","/register","/invalidSession","/csrf").permitAll());
 
         http.formLogin(withDefaults());
         http.httpBasic(hbc -> hbc.authenticationEntryPoint(new CustomAuthenticationEntryPoint()));

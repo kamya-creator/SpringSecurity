@@ -36,12 +36,12 @@ public class NoticesController {
 
         return null;
     }
-//
-//    @GetMapping("/csrf")
-//    public CsrfToken getCsrfToken(HttpServletRequest request)
-//    {
-//        return (CsrfToken) request.getAttribute("_csrf");
-//
-//
-//    }
+
+    @GetMapping("/csrf")
+    public CsrfToken getCsrfToken(HttpServletRequest request)
+    {
+        return (CsrfToken) request.getAttribute("_csrf");
+
+
+    }
 }
