@@ -16,7 +16,18 @@ export class XhrInterceptor implements HttpInterceptor {
       this.user = JSON.parse(sessionStorage.getItem('userdetails')!);
     }
     if(this.user && this.user.password && this.user.email){
+      // Adding 'Authorization in Header' for CSRF protection
       httpHeaders = httpHeaders.append('Authorization', 'Basic ' + window.btoa(this.user.email + ':' + this.user.password));
+    }
+    else{
+      // JWT token receieved in 'Authorization' after User Login sucess 
+
+      let authorization = sessionStorage.getItem('Authorization');
+      if(authorization)
+      {
+        // JWT token set in 'Authorization' httpHeader 
+        httpHeaders = httpHeaders.append('Authorization', authorization);
+      }
     }
 
     let xsrf = sessionStorage.getItem('XSRF-TOKEN');
